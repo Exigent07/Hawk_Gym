@@ -1,0 +1,6 @@
+-> Login page
+-> Register Page
+-> Home Page
+-> Profile page
+-> Workout Page
+-> Playlist page/Inspiration page
