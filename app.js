@@ -1,15 +1,16 @@
-import express from 'express';
-import ejs from 'ejs';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import mysql from 'mysql';
-import bcrypt from 'bcrypt';
+const express = require('express');
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const mysql = require('mysql');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -74,7 +75,7 @@ Object.values(query).forEach(element => {
 });
 
 app.get("/login", (req, res) => {
-  res.sendFile("/home/exigent/Web Development/Hawk_Gym/index.html");
+  res.sendFile(__dirname + "/index.html");
 })
 
 app.post("/login", (req, res) => {
