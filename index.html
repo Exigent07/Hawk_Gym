@@ -3,25 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-
-
     <title>Login Form</title>
-
 </head>
-<body class="bg-gradient-to-r from-amber-200 to-yellow-400">
-
-    <!-- Login Form -->
-<div class="login-page">
-    <div id="text" class="md:text-8xl uppercase bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-600 text-5xl font-black mt-4">HAWK GYM</div>
-    
-    <form class="login" action="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password" >
-        <button type="submit">Submit</button>
-    </form>
-</div>
-
+<body>
+    <h2>Hawk Gym</h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Create Account</h1>
+                <span>or use your email for registration</span>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <button>Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1>
+                <span>or use your account</span>
+                <input type="email" placeholder="Email" required/>
+                <input type="password" placeholder="Password" required/>
+                <a href="#">Forgot your password?</a>
+                <button>Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, fitness enthusiast!</h1>
+                    <p>Enter your personal details and let's kickstart your journey with us!</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="/js/script.js"></script>
 </body>
 </html>
