@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+
+    <title>Login Form</title>
+
 </head>
-<body>
-    <form action="post">
-        <input type="text" name="username">
-        <input type="password" name="password">
+<body class="bg-gradient-to-r from-amber-200 to-yellow-400">
+
+    <!-- Login Form -->
+<div class="login-page">
+    <div id="text" class="md:text-8xl uppercase bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-600 text-5xl font-black mt-4">HAWK GYM</div>
+    
+
+    <form class="login" action="post">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password" >
+
         <button type="submit">Submit</button>
     </form>
+</div>
+
 </body>
 </html>
