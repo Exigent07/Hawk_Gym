@@ -6,7 +6,7 @@
 }
 
 body {
-	background: #f6f5f7;
+  background-color: #FF4B2B;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -14,6 +14,11 @@ body {
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
 	margin: -20px 0 50px;
+}
+
+.bg {
+  background-image: url("/images/background.jpg");
+  background-size: 0;
 }
 
 h1 {
@@ -89,7 +94,13 @@ input {
 	width: 100%;
 }
 
+.logo {
+  height: 50px;
+  margin-bottom: 20px;
+}
+
 .container {
+  opacity: 0;
 	background-color: #fff;
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
@@ -97,7 +108,7 @@ input {
 	position: relative;
 	overflow: hidden;
 	width: 768px;
-	max-width: 100%;
+	max-width: 95%;
 	min-height: 480px;
 }
 
@@ -211,27 +222,89 @@ input {
 	transform: translateX(20%);
 }
 
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
+#loading {
+  position: fixed;
 }
 
-footer p {
-    margin: 10px 0;
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
 }
 
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
+@media (max-width: 768px) {
+  .container {
+      width: 95%;
+      border-radius: 25px;
+      box-shadow: none;
+  }
+  
+  .form-container {
+      width: 100%;
+  }
+  
+  .overlay-container {
+      width: 100%;
+      height: auto;
+      transform: translateY(100%);
+  }
+  
+  .overlay {
+      width: 100%;
+      height: auto;
+  }
+  
+  .overlay-panel {
+      width: 100%;
+  }
 }

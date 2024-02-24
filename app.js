@@ -92,7 +92,7 @@ app.post("/login", (req, res) => {
     }
     console.log('Query results:', results);
     if (results.length === 0) {
-      res.send("Invalid Username or Password");
+      res.redirect("/?invalid")
       return;
     }
     let hashedPassword = results[0].password;
@@ -101,7 +101,7 @@ app.post("/login", (req, res) => {
     if (match) {
       res.send(`Username: ${results[0].username}<br>Password: ${password}`);
     } else {
-      res.send("Invalid Username or Password");
+      res.redirect("/?invalid")
     }
     
   });
@@ -118,15 +118,15 @@ app.post("/register", async (req, res) => {
     con.query(query, [username, hashedPass, email], (err, result) => {
       if (err) {
         console.error('Error registering user:', err);
-        res.status(500).send('Error registering user');
+        res.redirect('/?failed');
         return;
       }
       console.log('User registered successfully');
-      res.send('User registered successfully');
+      res.redirect("/?success")
     });
   } catch (error) {
     console.error('Error hashing password:', error);
-    res.status(500).send('Error registering user');
+    res.redirect('/?failed');
   }
 });
 
