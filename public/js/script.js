@@ -1,6 +1,10 @@
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
+const signUpExtra = document.getElementById('signUpExtra');
+const signInExtra = document.getElementById('signInExtra');
 const container = document.getElementById('container');
+const signUp = document.getElementsByClassName('sign-up-container')[0];
+const signIn = document.getElementsByClassName('sign-in-container')[0];
 
 // if (window.innerWidth <= 768) {
     
@@ -21,6 +25,17 @@ signUpButton.addEventListener('click', () => {
 
 signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
+});
+
+signUpExtra.addEventListener('click', () => {
+	signIn.style.display = "none";
+	signUp.style.display = "inline-block";
+	signUp.style.opacity = 1;
+});
+
+signInExtra.addEventListener('click', () => {
+	signUp.style.display = "none";
+	signIn.style.display = "inline-block";
 });
 
 const queryString = window.location.search;
@@ -46,6 +61,10 @@ if (urlParams.has("invalid")) {
     });
 } else if (urlParams.has("failed")) {
     swal("Failed!", "Registration Failed", "error").then(() => {
+        window.location.href = "/";
+    });
+} else if (urlParams.has("exists")) {
+    swal("Exists!", "Useraname or Email already exists!", "warning").then(() => {
         window.location.href = "/";
     });
 }

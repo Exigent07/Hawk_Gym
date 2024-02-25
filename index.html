@@ -7,31 +7,35 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Login Form</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Hawk Gym</title>
 </head>
 <body class="body bg">
     <div id="loading">
-        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <div class="load"><div></div><div></div><div></div><div></div></div>
     </div>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form method="post" action="/register">
+            <form method="post" enctype="multipart/form-data" action="/register">
+                <img class="logo logoExtra" src="/images/logo.png" alt="logo">
                 <h1>Create Account</h1>
-                <span>or use your email for registration</span>
                 <input type="text" autocomplete="off" name="username" placeholder="Name" required/>
                 <input type="email" autocomplete="off" name="email" placeholder="Email" required/>
                 <input type="password" name="password" placeholder="Password" required/>
+                <input type="file" name="file" id="fileInput" required>
                 <button>Sign Up</button>
+                <a id="signInExtra" class="extra">Sign In</a>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form method="post" action="/login">
+                <img class="logo logoExtra" src="/images/logo.png" alt="logo">
                 <h1>Sign in</h1>
-                <span>or use your account</span>
                 <input type="text" autocomplete="off" name="username" placeholder="Email/Username" required/>
                 <input type="password" name="password" placeholder="Password" required/>
                 <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
+                <button type="submit">Sign In</button>
+                <a id="signUpExtra" class="extra">Sign Up</a>
             </form>
         </div>
         <div class="overlay-container">

@@ -4,12 +4,27 @@ const bodyParser    = require('body-parser');
 const cookieParser  = require('cookie-parser');
 const mysql         = require('mysql');
 const bcrypt        = require('bcrypt');
-const {encode}  = require('html-entities');
+const {encode}      = require('html-entities');
+const multer        = require('multer');
+const path          = require('path');
+const fs            = require('fs');
+
 
 const app   = express();
 const port  = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+
+const upload = multer({ storage: storage });
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -83,7 +98,7 @@ app.post("/login", (req, res) => {
   const input = req.body.username;
   const password = req.body.password;
 
-  let query   = `SELECT * FROM users WHERE username = ? OR email = ?`;
+  let query   = `SELECT * FROM users WHERE BINARY username = ? OR email = ?`;
   let values  = [input, input];
   con.query(query, values, async (error, results, fields) => {
     if (error) {
@@ -107,28 +122,53 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.post("/register", async (req, res) => {
+app.post("/register", upload.single('file'), async (req, res) => {
   const username = encode(req.body.username);
   const password = req.body.password;
-  const email    = req.body.email;
+  const email = req.body.email;
+  const filename = req.file.filename;
 
   try {
-    const hashedPass = await hashPassword(password);
-    const query = `INSERT INTO users(username, password, email) VALUES (?, ?, ?)`;
-    con.query(query, [username, hashedPass, email], (err, result) => {
-      if (err) {
-        console.error('Error registering user:', err);
-        res.redirect('/?failed');
-        return;
-      }
-      console.log('User registered successfully');
-      res.redirect("/?success")
+    const [user] = await new Promise((resolve, reject) => {
+      con.query(`SELECT * FROM users WHERE username = ? OR email = ?`, [username, email], (err, result) => {
+        if (err) {
+          console.error('Error registering user:', err);
+          reject(err);
+          return;
+        }
+        resolve(result);
+      });
     });
+
+    if (user) {
+      fs.unlink("uploads/" + filename, (err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+          return;
+        }
+        console.log('File deleted successfully');
+      });
+      res.redirect(301, "/?exists");
+    } else {
+      const hashedPass = await hashPassword(password);
+      const query = `INSERT INTO users(username, password, email, fee_due, profile_pic) VALUES (?, ?, ?, ?, ?)`;
+      con.query(query, [username, hashedPass, email, 0, filename], (err, result) => {
+        if (err) {
+          console.error('Error registering user:', err);
+          res.redirect('/?failed');
+          return;
+        }
+
+        console.log('User registered successfully');
+        res.redirect("/?success");
+      });
+    }
   } catch (error) {
     console.error('Error hashing password:', error);
     res.redirect('/?failed');
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
